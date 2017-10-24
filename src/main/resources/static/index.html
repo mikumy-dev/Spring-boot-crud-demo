@@ -1,0 +1,46 @@
+<html>
+  
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href="http://localhost:8080">
+    <title></title>
+    <script src="js/jquery-1.9.1.min.js"></script>
+  </head>
+  <body>
+    hello
+    <button onclick="show()">show</button>
+    <button onclick="shutdown()">shutdown</button>
+    <form action="/user/add">
+    	<input type="text" name="username">
+    	<input type="text" name="password">
+    	<input type="submit" value="add new user">
+    </form>
+    <div id="users"></div>
+  </body>
+  <script type="text/javascript">
+  function show(){
+    $.ajax({
+    	url:"/user/getUserById?id=1",
+    	type:"POST",
+    	success:function(msg){
+    		console.log(msg);
+    		var userArr = JSON.parse(msg);
+    		for(var i=0;i<userArr.length;i++){
+    			
+    			$("#users").append(userArr[i].username)
+    		}
+    	}
+    })
+  }
+  function shutdown(){
+	    $.ajax({
+	    	url:"/shutdown",
+	    	type:"POST",
+	    	success:function(msg){
+	    		console.log(msg);
+	    		
+	    	}
+	    })
+	  }
+  </script>
+</html>
